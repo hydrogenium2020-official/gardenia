@@ -18,7 +18,5 @@
 #include "i2c.h"
 #include "pinmux.h"
 void config_gpios(){
-    APB_MISC(APB_MISC_PP_PINMUX_GLOBAL) = 0;
-    pinmux_config_i2c(I2C_1);
-	pinmux_config_i2c(I2C_5);
+
 }

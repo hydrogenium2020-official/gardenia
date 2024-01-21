@@ -15,9 +15,3 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "types.h"
-#define APBDEV_PMC_OSC_EDPD_OVER 0x1a4
-#define APBDEV_PMC_CNTRL2 0x440
-#define APBDEV_PMC_TSC_MULT 0x2B4
-
-#define  PMC_OSC_EDPD_OVER_OSC_CTRL_OVER   BIT(22)
-#define  PMC_CNTRL2_HOLD_CKE_LOW_EN        BIT(12)

@@ -14,7 +14,5 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#define MC_IRAM_BOM                                             0x65c
-#define MC_IRAM_TOM                                             0x660
-#define MC_LATENCY_ALLOWANCE_A9AVP                              0x3a4
+
 void mc_enable();

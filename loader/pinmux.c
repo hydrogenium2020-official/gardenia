@@ -16,8 +16,3 @@
 */
 #include "t124.h"
 #include "pinmux.h"
-void pinmux_config_i2c(u32 idx)
-{
-	PINMUX_AUX(PINMUX_AUX_X_I2C_SCL(idx)) = 0x40;
-	PINMUX_AUX(PINMUX_AUX_X_I2C_SDA(idx)) = 0x40;
-}

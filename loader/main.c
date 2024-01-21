@@ -66,23 +66,18 @@ void config_hw(){
     fuse_disable_program();
     printf_("[x] fuse program disabled\n");
     
+    // Initialize counters, CLKM, BPMP(also called AVP in T124/T132) and other clocks based on 38.4MHz oscillator.
+	config_oscillators();
+
     mc_enable();
     printf_("[x] mc setup\n");
 
-    	// Initialize counters, CLKM, BPMP(also called AVP in T124/T132) and other clocks based on 38.4MHz oscillator.
-	config_oscillators();
-    printf_("[x] Oscillators setup at 12Mhz\n");
-    printf_("\tCLK_M:12Mhz\n");
-    printf_("\tCLK_S:32.768khz\n");
-    printf_("\tSystem CLK:127.5Mhz\n");
-    printf_("\tHCLK: 127.5Mhz\n");
-    printf_("\tPCLK: 31.875Mhz\n");
-
     config_gpios();
     printf_("[x] GPIO setup\n");
+    
 
-    clock_enable_cl_dvfs();
-    printf_("[x] DVFS setup\n");
+    //clock_enable_cl_dvfs();
+    //printf_("[x] DVFS setup\n");
     
     //FIXME I2C Doesn't work!!!
     printf_("Fixme.I2C doesn't work");

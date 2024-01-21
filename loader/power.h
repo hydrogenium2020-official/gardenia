@@ -17,7 +17,5 @@
 #ifndef _T124_POWER_H_
 #define _T124_POWER_H_
 
-#define TPS65913_I2C_ADDR     0xB0
-#define PMU_EEPROM_I2C_ADDR 0xAA
 
 #endif
