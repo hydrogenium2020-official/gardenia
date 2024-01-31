@@ -15,3 +15,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "types.h"
+#define APBDEV_PMC_OSC_EDPD_OVER     0x1A4
+enum {
+	PMC_XOFS_SHIFT = 1,
+	PMC_XOFS_MASK = 0x3f << PMC_XOFS_SHIFT
+};
