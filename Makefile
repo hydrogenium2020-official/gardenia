@@ -8,6 +8,7 @@ TARGET := bootloader
 BUILD := build
 SOURCEDIR := loader
 OBJS = $(addprefix $(BUILD)/, \
+	stack.o		\
 	main.o		\
 	fuse.o		\
 	usb.o		\
@@ -17,6 +18,8 @@ OBJS = $(addprefix $(BUILD)/, \
 	clock.o		\
 	pinmux.o	\
 	gpio.o		\
+	heap.o		\
+	uart.o      \
 )
 
 OBJS += $(addprefix $(BUILD)/, \
