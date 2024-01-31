@@ -1,5 +1,4 @@
 /*
-* Copyright (c) 2024 hydrogenium2020-offical
 * Copyright (c) 2018 naehrwert
 *
 * This program is free software; you can redistribute it and/or modify it
@@ -14,7 +13,8 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#define MC_IRAM_BOM                                             0x65c
-#define MC_IRAM_TOM                                             0x660
-void mc_enable();
+.globl pivot_stack
+.type pivot_stack, %function
+pivot_stack:
+	MOV SP, R0
+	BX LR

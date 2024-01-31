@@ -1,5 +1,4 @@
 /*
-* Copyright (c) 2024 hydrogenium2020-offical
 * Copyright (c) 2018 naehrwert
 *
 * This program is free software; you can redistribute it and/or modify it
@@ -15,6 +14,14 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define MC_IRAM_BOM                                             0x65c
-#define MC_IRAM_TOM                                             0x660
-void mc_enable();
+#ifndef _HEAP_H_
+#define _HEAP_H_
+
+#include "types.h"
+
+void heap_init(u32 base);
+void *malloc(u32 size);
+void *calloc(u32 num, u32 size);
+void free(void *buf);
+
+#endif

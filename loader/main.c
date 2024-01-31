@@ -29,6 +29,7 @@
 #include "pinmux.h"
 #include "gpio.h"
 #include "i2c.h"
+#include "uart.h"
 
 static inline u32 read32(uintptr_t addr) {
     return *(vu32 *)addr;
@@ -62,12 +63,21 @@ void enter_rcm() {
 
 
 void config_hw(){
-    printf_("Starting Initing hardware.");
+    printf_("Starting Initing hardware.\n");
     fuse_disable_program();
     printf_("[x] fuse program disabled\n");
     
-    // Initialize counters, CLKM, BPMP(also called AVP in T124/T132) and other clocks based on 38.4MHz oscillator.
+    // Initialize oscillators
 	config_oscillators();
+
+    // My board didn't have UART port
+    // pinmux_config_uart(UART_D);
+	// clock_enable_uart(UART_D);
+	// uart_init(UART_D, 115200, UART_AO_TX_AO_RX);
+	// uart_invert(UART_D, 0, UART_INVERT_TXD);
+
+    uart_send(UART_D, (u8 *)"hekate: Hello!\r\n", 16);
+	uart_wait_xfer(UART_D, UART_TX_IDLE);
 
     mc_enable();
     printf_("[x] mc setup\n");
@@ -75,17 +85,8 @@ void config_hw(){
     config_gpios();
     printf_("[x] GPIO setup\n");
     
-
-    //clock_enable_cl_dvfs();
-    //printf_("[x] DVFS setup\n");
-    
-    //FIXME I2C Doesn't work!!!
-    printf_("Fixme.I2C doesn't work");
-	// clock_enable_i2c(I2C_1);
-	// clock_enable_i2c(I2C_5);
-
 }
-
+extern void pivot_stack(u32 stack_top);
 __attribute__((section(".init")))
 void _start() {
     // u8 *buffer = (u8*)0x40020000;
@@ -98,6 +99,14 @@ void _start() {
     dump_pkc();
     config_hw();
     
+    //FIXME!!!->init memory
+    //Pivot the stack so we have enough space.
+//	pivot_stack(0x40000000);
+
+	//Tegra/Horizon configuration goes to 0x80000000+, package2 goes to 0xA9800000, we place our heap in between.
+//	heap_init(0x90020000);
+    
+
     enter_rcm();
 }
 
