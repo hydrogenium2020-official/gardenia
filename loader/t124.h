@@ -28,6 +28,8 @@
 #define SYSCTR0_BASE     0x700F0000
 #define APB_MISC_BASE 0x70000000
 #define PINMUX_AUX_BASE 0x70003000
+#define I2C_BASE         0x7000C000
+#define UART_BASE 0x70006000
 
 #define MMIO_REG32(base, off) *(vu32 *)((base) + (off))
 
@@ -40,6 +42,8 @@
 #define SYSCTR0(off) MMIO_REG32(SYSCTR0_BASE, off)
 #define APB_MISC(off) MMIO_REG32(APB_MISC_BASE, off)
 #define PINMUX_AUX(off) MMIO_REG32(PINMUX_AUX_BASE, off)
+#define I2C(off)     MMIO_REG32(I2C_BASE, off)
+#define UART(off)     MMIO_REG32(UART_BASE, off)
 
 //PMC
 #define APBDEV_PMC_CRYPTO_OP 0xF4

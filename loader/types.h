@@ -34,4 +34,5 @@ typedef u32 size_t;
 typedef u32 uintptr_t;
 
 #define BIT(n) (1U << (n))
+#define ALIGN(x, a) (((x) + (a) - 1) & ~((a) - 1))
 #endif
