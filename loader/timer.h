@@ -14,5 +14,9 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#ifndef _T124_TIMER_H_
+#define _T124_TIMER_H_
+
 #define TIMERUS_CNTR_1US   (0x10 + 0x0)
-#define TIMERUS_USEC_CFG   (0x10 + 0x4)
+
+#endif

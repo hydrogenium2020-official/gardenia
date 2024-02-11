@@ -20,6 +20,4 @@
 #define BOOTROM_USB_WRITE_EP1    0x001065C0
 #define BOOTROM_USB_READ_EP1    0x00106612
 
-
-
 #endif

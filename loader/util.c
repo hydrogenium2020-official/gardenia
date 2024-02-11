@@ -25,3 +25,21 @@ void sleep(u32 ticks)
 	while (TIMER0(TIMERUS_CNTR_1US) - start <= ticks)
 		;
 }
+// static inline void setbits32(uint32_t bits, void *addr)
+// {
+// 	write32(addr, read32(addr) | bits);
+// }
+
+// static inline void clrbits32(uint32_t bits, void *addr)
+// {
+// 	write32(addr, read32(addr) & ~bits);
+// }
+
+
+// void clrsetbits32(addr, mask, set){
+// 	MMIO_REG32(addr,0)=MMIO_REG32(addr,0) &~(mask) | (value & mask);
+// }
+// static void writebits(uint32_t value, uint32_t *addr, uint32_t mask)
+// {
+// 	clrsetbits32(addr, mask, (value & mask));
+// }

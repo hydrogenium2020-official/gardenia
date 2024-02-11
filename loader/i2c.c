@@ -15,18 +15,25 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef _I2C_H_
-#define _I2C_H_
-
 #include "types.h"
+#include "i2c.h"
+void i2c_init(u32 i2c_idx)
+{
+	vu32 *base = (vu32 *)(I2C_BASE + (u32)_i2c_base_offsets[i2c_idx]);
 
-#define I2C_1 0
-#define I2C_2 1
-#define I2C_3 2
-#define I2C_4 3
-#define I2C_5 4
-#define I2C_6 5
+	base[I2C_CLK_DIVISOR] = (5 << 16) | 1; // SF mode Div: 6, HS mode div: 2.
+	base[I2C_BUS_CLEAR_CONFIG] = (9 << 16) | BC_TERMINATE | BC_ENABLE;
 
-void i2c_init(u32 i2c_idx);
+	// Load configuration.
+	_i2c_load_cfg_wait(base);
 
-#endif
+	for (u32 i = 0; i < 10; i++)
+	{
+		if (base[I2C_INT_STATUS] & BUS_CLEAR_DONE)
+			break;
+		usleep(25);
+	}
+
+	(vu32)base[I2C_BUS_CLEAR_STATUS];
+	base[I2C_INT_STATUS] = base[I2C_INT_STATUS];
+}

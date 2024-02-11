@@ -1,3 +1,23 @@
+/*
+* Copyright (c) 2018 naehrwert
+* Copyright (c) 2019-2020 CTCaer
+* Copyright (c) 2024 hydrogenium2020-offical
+*
+* This program is free software; you can redistribute it and/or modify it
+* under the terms and conditions of the GNU General Public License,
+* version 2, as published by the Free Software Foundation.
+*
+* This program is distributed in the hope it will be useful, but WITHOUT
+* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+* FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+* more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#ifndef _T124_UART_H_
+#define _T124_UART_H_
+
 #include "types.h"
 #define UART_A 0
 #define UART_B 1
@@ -81,3 +101,5 @@ void uart_wait_xfer(u32 idx, u32 which);
 void uart_invert(u32 idx, u32 enable, u32 invert_mask);
 void uart_init(u32 idx, u32 baud, u32 mode);
 void uart_send(u32 idx, const u8 *buf, u32 len);
+
+#endif
