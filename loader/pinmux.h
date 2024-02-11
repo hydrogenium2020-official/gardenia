@@ -14,6 +14,10 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+#ifndef _T124_PINMUX_H_
+#define _T124_PINMUX_H_
+
 enum {
 	PINMUX_FUNC_MASK = 3 << 0,
 
@@ -48,4 +52,4 @@ enum {
 void pinmux_config_uart(u32 idx);
 void pinmux_config_i2c(u32 idx);
 
-
+#endif

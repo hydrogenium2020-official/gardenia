@@ -1,6 +1,7 @@
 /*
-* Copyright (c) 2024 hydrogenium2020-offical
 * Copyright (c) 2018 naehrwert
+* Copyright (c) 2018-2022 CTCaer
+* Copyright (c) 2024 hydrogenium2020-offical
 *
 * This program is free software; you can redistribute it and/or modify it
 * under the terms and conditions of the GNU General Public License,
@@ -14,9 +15,12 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "types.h"
 
-/*! Generic clock descriptor. */
+#ifndef _T124_CLOCK_H_
+#define _T124_CLOCK_H_
+
+#include "types.h"
+	/*! Generic clock descriptor. */
 typedef struct _clk_rst_t
 {
 	u16 reset;
@@ -85,6 +89,8 @@ typedef struct _clk_rst_t
 #define CLK_RST_CONTROLLER_PLLU_MISC 0xcc
 #define CLK_RST_CONTROLLER_PLLU_MISC_PLLU_LOCK_ENABLE_SHIFT 22
 
+
+
 //PLLDP (Graphis PLL)
 #define CLK_RST_CONTROLLER_PLLDP_SS_CFG 0x598
 #define CLK_RST_CONTROLLER_PLLDP_BASE 0x590
@@ -116,11 +122,63 @@ typedef struct _clk_rst_t
 #define CLK_DIVIDER(REF, FREQ)	(DIV_ROUND_UP(((REF) * 2), (FREQ)) - 2)
 
 //MC
-#define CLK_RST_CONTROLLER_CLK_SOURCE_EMC 0x19c
 #define CLK_RST_CONTROLLER_CLK_ENB_H_SET 0x328
 #define CLK_RST_CONTROLLER_CLK_ENB_X_SET 0x284
 #define CLK_RST_CONTROLLER_RST_DEV_H_SET 0x308
+#define CLK_RST_CONTROLLER_RST_DEV_H_CLR 0x30C
 #define CLK_RST_CONTROLLER_LVL2_CLK_GATE_OVRD 0x3a4
+
+
+/* SPECIAL CASE: PLLM, PLLC and PLLX use different-sized fields here */
+#define PLLCX_BASE_DIVP_MASK		(0xfU << PLL_BASE_DIVP_SHIFT)
+#define PLLM_BASE_DIVP_MASK		(0x1U << PLL_BASE_DIVP_SHIFT)
+#define PLLCMX_BASE_DIVN_MASK		(0xffU << PLL_BASE_DIVN_SHIFT)
+#define PLLCMX_BASE_DIVM_MASK		(0xffU << PLL_BASE_DIVM_SHIFT)
+enum {
+	MC_EMEM_CFG_SIZE_MB_SHIFT = 0,
+	MC_EMEM_CFG_SIZE_MB_MASK = 0x3fff,
+
+	MC_EMEM_ARB_MISC0_MC_EMC_SAME_FREQ_SHIFT = 27,
+	MC_EMEM_ARB_MISC0_MC_EMC_SAME_FREQ_MASK = 1 << 27,
+
+	MC_EMEM_CFG_ACCESS_CTRL_WRITE_ACCESS_DISABLED = 1,
+
+	MC_TIMING_CONTROL_TIMING_UPDATE = 1,
+};
+
+//EMC
+#define CLK_RST_CONTROLLER_CLK_SOURCE_EMC 0x19c
+#define CLK_SOURCE_EMC_MC_EMC_SAME_FREQ (1 << 16)
+
+//PLLM
+#define PLLM_BASE 0x90
+#define PLLM_MISC1_BASE 0x98
+#define PLLM_MISC2_BASE 0x9c
+#define PLLM_MISC1_SETUP_SHIFT			0
+#define PLLM_MISC1_PD_LSHIFT_PH45_SHIFT		28
+#define PLLM_MISC1_PD_LSHIFT_PH90_SHIFT		29
+#define PLLM_MISC1_PD_LSHIFT_PH135_SHIFT	30
+#define PLLM_MISC2_KCP_SHIFT			1
+#define PLLM_MISC2_KVCO_SHIFT			0
+#define PLLM_OUT1_RSTN_RESET_DISABLE		(1 << 0)
+
+/* CLK_RST_CONTROLLER_PLL*_BASE_0 */
+#define PLL_BASE_BYPASS			(1U << 31)
+#define PLL_BASE_ENABLE			(1U << 30)
+#define PLL_BASE_REF_DIS		(1U << 29)
+#define PLL_BASE_OVRRIDE		(1U << 28)
+#define PLL_BASE_LOCK			(1U << 27)
+#define IO_STABILIZATION_DELAY (2)
+
+#define PLL_BASE_DIVP_SHIFT		20
+#define PLL_BASE_DIVP_MASK		(7U << PLL_BASE_DIVP_SHIFT)
+
+#define PLL_BASE_DIVN_SHIFT		8
+#define PLL_BASE_DIVN_MASK		(0x3ffU << PLL_BASE_DIVN_SHIFT)
+
+#define PLL_BASE_DIVM_SHIFT		0
+#define PLL_BASE_DIVM_MASK		(0x1f << PLL_BASE_DIVM_SHIFT)
+
 
 //Reset
 #define CLK_RST_CONTROLLER_RST_DEVICES_L 0x4
@@ -215,3 +273,5 @@ void clock_enable_i2c(u32 idx);
 void clock_enable_uart(u32 idx);
 void config_oscillators();
 int clock_uart_use_src_div(u32 idx, u32 baud);
+
+#endif

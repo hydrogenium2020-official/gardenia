@@ -20,6 +20,9 @@ OBJS = $(addprefix $(BUILD)/, \
 	gpio.o		\
 	heap.o		\
 	uart.o      \
+	sdram.o 	\
+	sdram_lp0.o \
+	io.o 		\
 )
 
 OBJS += $(addprefix $(BUILD)/, \
